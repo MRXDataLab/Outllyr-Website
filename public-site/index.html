@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outllyr | Access to Continuous Consumer Intelligence</title>
+  <meta name="description" content="Outllyr replaces slow survey-driven research with a real-time stream of causal, source-linked consumer intelligence — at scale.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=DM+Sans:wght@400;500&family=DM+Mono&family=Instrument+Serif:ital@1&display=swap');
+
+    :root {
+      --teal:       #1B7D6B;
+      --dark-navy:  #0F1A3E;
+      --navy:       #2D3B8E;
+      --coral:      #C9614A;
+      --sand:       #E8C9B0;
+      --bg:         #F5F4F0;
+      --ink:        #0F1623;
+      --muted:      #6B7280;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Sora', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; }
+
+    /* ── SECTION LABEL (reused) ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      height: 64px; display: flex; align-items: center;
+      padding: 0 24px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s, border-color 0.35s, backdrop-filter 0.35s;
+    }
+    .nav.scrolled {
+      background: rgba(245,244,240,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+    .nav-inner {
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 18px; color: var(--teal); }
+    .nav-right { display: flex; align-items: center; gap: 28px; }
+    .nav-link {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      transition: color 0.3s;
+    }
+    .nav.scrolled .nav-link { color: var(--muted); }
+    .nav-link.active, .nav.scrolled .nav-link.active { color: var(--teal); }
+    .nav-cta {
+      font-weight: 500; font-size: 14px;
+      background: var(--coral); color: white;
+      padding: 10px 20px; border-radius: 8px;
+      transition: transform 0.2s;
+    }
+    .nav-cta:hover { transform: scale(1.02); color: white; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); margin: 5px 0; transition: 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--dark-navy);
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 100px 24px 80px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--teal); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 20px;
+    }
+    .hero-headline { font-size: clamp(42px,6vw,72px); color: white; line-height: 1.1; }
+    .hero-sub {
+      font-size: 18px; color: rgba(255,255,255,0.72);
+      line-height: 1.6; max-width: 480px; margin-top: 20px;
+    }
+    .hero-ctas { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+    .btn-coral {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px;
+      background: var(--coral); color: white;
+      padding: 14px 28px; border-radius: 8px;
+      transition: transform 0.2s; display: inline-block;
+    }
+    .btn-coral:hover { transform: scale(1.02); color: white; }
+    .btn-outline-light {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px;
+      background: transparent; color: white;
+      padding: 14px 28px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: transform 0.2s; display: inline-block;
+    }
+    .btn-outline-light:hover { transform: scale(1.02); color: white; }
+    .hero-pills { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+    .pill {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      border: 1px solid var(--teal); padding: 6px 14px; border-radius: 100px;
+    }
+    .hero-canvas-wrap {
+      width: 100%; height: 50vh; position: relative;
+      background: linear-gradient(135deg, var(--dark-navy), rgba(27,125,107,0.12));
+      border-radius: 12px; overflow: hidden;
+    }
+    .hero-canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+
+    /* Hero entrance */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-anim { opacity: 0; animation: fadeInUp 600ms cubic-bezier(0.16,1,0.3,1) forwards; }
+
+    /* ── PROBLEM ── */
+    .problem { background: var(--dark-navy); color: white; padding: 72px 0; }
+    .problem-inner { max-width: 900px; margin: 0 auto; padding-inline: 24px; }
+    .problem-headline {
+      font-size: clamp(32px,4.5vw,48px); letter-spacing: -0.02em;
+      margin-bottom: 56px; line-height: 1.15;
+    }
+    .problem-grid { display: grid; grid-template-columns: 1fr; gap: 36px; }
+    .problem-item strong {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 20px;
+      display: block; margin-bottom: 8px;
+    }
+    .problem-item p { font-size: 16px; color: rgba(255,255,255,0.62); line-height: 1.65; }
+    .problem-rule { width: 40%; height: 1px; background: var(--teal); opacity: 0.4; margin: 64px auto 0; }
+
+    /* ── HOW IT WORKS ── */
+    .method { background: var(--bg); padding: 72px 0; }
+    .method-inner { max-width: 1100px; margin: 0 auto; padding-inline: 24px; }
+    .method-headline { font-size: clamp(28px,4vw,44px); margin-bottom: 52px; line-height: 1.15; }
+    .method-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+    .method-step {
+      position: relative; border-top: 0.5px solid rgba(27,125,107,0.2); padding: 40px 0;
+    }
+    .step-num {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 88px;
+      color: var(--teal); opacity: 0.12;
+      position: absolute; top: 16px; right: 0;
+      user-select: none; line-height: 1; pointer-events: none;
+    }
+    .method-step h3 {
+      font-size: 20px; color: var(--ink); margin-bottom: 12px;
+    }
+    .method-step p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 280px; }
+
+    /* ── WHY OUTLLYR ── */
+    .why { background: white; padding: 72px 0; }
+    .why-inner { max-width: 1100px; margin: 0 auto; padding-inline: 24px; }
+    .why-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+    .why-headline { font-size: clamp(28px,3.5vw,40px); color: var(--ink); line-height: 1.2; }
+    .why-contrasts { display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+    .why-contrast-item {
+      border-left: 2px solid var(--teal); padding-left: 16px;
+    }
+    .why-contrast-item strong {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px;
+      display: block; margin-bottom: 4px; color: var(--ink);
+    }
+    .why-contrast-item p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .why-cards { display: flex; flex-direction: column; gap: 16px; }
+    .why-card {
+      background: white; border: 1px solid rgba(27,125,107,0.2);
+      border-left: 3px solid var(--teal); border-radius: 10px;
+      padding: 24px 28px;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .why-card:hover { transform: translateY(-3px); }
+    .why-card h4 { font-size: 16px; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+    .why-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── PROOF ── */
+    .proof { background: var(--sand); padding: 64px 0; text-align: center; }
+    .proof-inner { max-width: 780px; margin: 0 auto; padding-inline: 24px; }
+    .proof-mark {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 80px;
+      color: var(--teal); opacity: 0.3; line-height: 1; margin-bottom: -16px;
+    }
+    .proof-quote {
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      font-size: 24px; color: var(--ink); line-height: 1.65;
+      max-width: 680px; margin: 0 auto;
+    }
+    .proof-attr { font-size: 14px; color: var(--muted); margin-top: 32px; }
+    .proof-link {
+      font-size: 14px; color: var(--teal); text-decoration: underline;
+      margin-top: 16px; display: inline-block;
+    }
+
+    /* ── PRICING ── */
+    .pricing { background: var(--bg); padding: 72px 0; }
+    .pricing-inner { max-width: 900px; margin: 0 auto; padding-inline: 24px; }
+    .pricing-headline { font-size: clamp(28px,4vw,44px); margin-bottom: 12px; line-height: 1.15; }
+    .pricing-sub { font-size: 17px; color: var(--muted); margin-bottom: 52px; line-height: 1.5; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    .pricing-card {
+      background: white; border-radius: 14px; padding: 36px; position: relative;
+    }
+    .pricing-card.explorer { border: 1px solid rgba(0,0,0,0.1); }
+    .pricing-card.guardian { border: 2px solid var(--navy); }
+    .guardian-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: white;
+      font-weight: 500; font-size: 12px;
+      padding: 5px 16px; border-radius: 100px; white-space: nowrap;
+    }
+    .pricing-card h3 { font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+    .pricing-amount {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 36px;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .pricing-period { font-size: 16px; color: var(--muted); }
+    .pricing-divider { width: 100%; height: 0.5px; background: var(--teal); opacity: 0.4; margin: 20px 0; }
+    .pricing-features { list-style: none; margin-bottom: 28px; }
+    .pricing-features li {
+      font-size: 15px; color: var(--muted); padding: 6px 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pricing-features li::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--teal); flex-shrink: 0;
+    }
+    .btn-teal-outline {
+      display: block; width: 100%; text-align: center;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px;
+      color: var(--teal); border: 1px solid var(--teal);
+      padding: 14px 28px; border-radius: 8px;
+      background: transparent; transition: background 0.25s, color 0.25s;
+      cursor: pointer;
+    }
+    .btn-teal-outline:hover { background: var(--teal); color: white; }
+    .btn-coral-full {
+      display: block; width: 100%; text-align: center;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px;
+      background: var(--coral); color: white;
+      padding: 14px 28px; border-radius: 8px;
+      border: none; transition: transform 0.2s; cursor: pointer;
+    }
+    .btn-coral-full:hover { transform: scale(1.02); color: white; }
+    .pricing-note {
+      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted);
+      margin-top: 32px; text-align: center; line-height: 1.6;
+    }
+    .pricing-enterprise {
+      font-size: 14px; color: var(--muted); text-align: center; margin-top: 20px;
+    }
+    .pricing-enterprise a { color: var(--teal); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip { background: var(--teal); padding: 100px 24px; text-align: center; }
+    .cta-strip h2 { font-size: clamp(30px,4vw,48px); color: white; margin-bottom: 16px; }
+    .cta-strip p { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
+    .cta-strip .btn-coral {
+      font-family: 'Sora', sans-serif; font-weight: 700;
+      padding: 16px 36px; border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--ink); padding: 56px 24px 40px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr; gap: 36px;
+    }
+    .footer-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 18px; color: var(--teal); margin-bottom: 8px; }
+    .footer-tagline { font-size: 14px; color: var(--muted); }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-contact a { font-size: 14px; color: var(--teal); display: block; margin-bottom: 16px; }
+    .footer-socials { display: flex; gap: 16px; align-items: center; }
+    .footer-socials a { color: var(--teal); transition: opacity 0.2s; }
+    .footer-socials a:hover { opacity: 0.7; }
+    .footer-bottom {
+      border-top: 0.5px solid rgba(27,125,107,0.2);
+      margin-top: 48px; padding-top: 24px;
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 550ms cubic-bezier(0.16,1,0.3,1),
+                  transform 550ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE: TABLET ── */
+    @media (min-width: 768px) {
+      .hero { padding: 120px 24px 80px; }
+      .hero-canvas-wrap { height: 40vh; }
+      .problem { padding: 100px 0; }
+      .problem-grid { grid-template-columns: repeat(3, 1fr); gap: 48px; }
+      .method { padding: 100px 0; }
+      .method-grid { grid-template-columns: repeat(3, 1fr); }
+      .method-step { padding: 40px; }
+      .why { padding: 100px 0; }
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+      .proof { padding: 100px 0; }
+      .pricing { padding: 100px 0; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ── RESPONSIVE: DESKTOP ── */
+    @media (min-width: 1080px) {
+      .hero-inner { grid-template-columns: 58fr 42fr; }
+      .hero-canvas-wrap { height: 100%; min-height: 480px; }
+      .problem { padding: 120px 0; }
+      .method { padding: 120px 0; }
+      .why { padding: 120px 0; }
+      .pricing { padding: 120px 0; }
+    }
+
+    /* ── MOBILE NAV ── */
+    @media (max-width: 767px) {
+      .nav-right { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-right.open {
+        display: flex; flex-direction: column; gap: 20px;
+        position: absolute; top: 64px; right: 0;
+        background: var(--bg); padding: 24px 32px;
+        border-radius: 0 0 0 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .nav-right.open .nav-link { color: var(--muted); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── 01 NAV ── -->
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Outllyr</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-right').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right">
+      <a href="#product" class="nav-link" data-section="product">Product</a>
+      <a href="#pricing" class="nav-link" data-section="pricing">Pricing</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      <a href="#contact" class="nav-cta">Request pilot</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── 02 HERO ── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow hero-anim" style="animation-delay:0ms">Insights-as-Infrastructure</p>
+      <h1 class="hero-headline hero-anim" style="animation-delay:0ms">Stop asking.<br>Start knowing.</h1>
+      <p class="hero-sub hero-anim" style="animation-delay:100ms">Outllyr decodes the why behind consumer behavior — from billions of real signals, instantly, continuously.</p>
+      <div class="hero-ctas hero-anim" style="animation-delay:200ms">
+        <a href="#contact" class="btn-coral">Request a pilot →</a>
+        <a href="#product" class="btn-outline-light">See how it works</a>
+      </div>
+      <div class="hero-pills hero-anim" style="animation-delay:320ms">
+        <span class="pill">Causal AI</span>
+        <span class="pill">Source-linked</span>
+        <span class="pill">Always-on</span>
+      </div>
+    </div>
+    <div class="hero-canvas-wrap">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 PROBLEM ── -->
+<section class="problem" aria-label="Problem statement">
+  <div class="problem-inner">
+    <p class="section-label reveal">Why now</p>
+    <h2 class="problem-headline reveal">Research built for the 1990s is making 2026 decisions.</h2>
+    <div class="problem-grid">
+      <div class="problem-item reveal">
+        <strong>Slow</strong>
+        <p>Insights arrive after behavior has already shifted.</p>
+      </div>
+      <div class="problem-item reveal">
+        <strong>Biased</strong>
+        <p>Surveys capture memory, not what people actually do.</p>
+      </div>
+      <div class="problem-item reveal">
+        <strong>Opaque</strong>
+        <p>Dashboards show what happened. Never why.</p>
+      </div>
+    </div>
+    <div class="problem-rule"></div>
+  </div>
+</section>
+
+<!-- ── 04 HOW IT WORKS ── -->
+<section class="method" id="product" aria-label="How it works">
+  <div class="method-inner">
+    <p class="section-label reveal">The method</p>
+    <h2 class="method-headline reveal">From signal to decision in hours, not months.</h2>
+    <div class="method-grid">
+      <div class="method-step reveal">
+        <span class="step-num">01</span>
+        <h3>Listen</h3>
+        <p>We scan social, reviews, and search. No surveys. No sampling bias.</p>
+      </div>
+      <div class="method-step reveal">
+        <span class="step-num">02</span>
+        <h3>Decode</h3>
+        <p>Causal AI finds root causes, not correlations.</p>
+      </div>
+      <div class="method-step reveal">
+        <span class="step-num">03</span>
+        <h3>Deliver</h3>
+        <p>Source-linked, traceable answers tied to your business question.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05 WHY OUTLLYR ── -->
+<section class="why" aria-label="Why Outllyr">
+  <div class="why-inner">
+    <div class="why-grid">
+      <div class="why-left">
+        <h2 class="why-headline reveal">The only platform that tells you why — not just what.</h2>
+        <div class="why-contrasts">
+          <div class="why-contrast-item reveal">
+            <strong>Ask → Listen</strong>
+            <p>We don't interrupt customers. We read the world they already inhabit.</p>
+          </div>
+          <div class="why-contrast-item reveal">
+            <strong>Patterns → Causes</strong>
+            <p>Correlation tells you what. Causal AI tells you why it happened.</p>
+          </div>
+          <div class="why-contrast-item reveal">
+            <strong>Black box → Glass box</strong>
+            <p>Every insight links back to its source. No mystery. Full traceability.</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-cards">
+        <div class="why-card reveal">
+          <h4>Outcome-first</h4>
+          <p>You ask a business question. We return a clear decision, not a dashboard.</p>
+        </div>
+        <div class="why-card reveal">
+          <h4>Real-world signals</h4>
+          <p>Reviews, search trends, social behavior. Not survey panels.</p>
+        </div>
+        <div class="why-card reveal">
+          <h4>Continuous</h4>
+          <p>Always-on intelligence. Your market shifts daily; your insights should too.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 06 PROOF ── -->
+<section class="proof" aria-label="Social proof">
+  <div class="proof-inner">
+    <div class="proof-mark reveal">"</div>
+    <blockquote class="proof-quote reveal">At scale, traditional research becomes slow and inefficient. We needed a faster way to capture real consumer signals — without large sample dependencies.</blockquote>
+    <p class="proof-attr reveal">Insights Team · Ola Electric, 2W Category</p>
+    <a href="#" class="proof-link reveal">Read the case study →</a>
+  </div>
+</section>
+
+<!-- ── 07 PRICING ── -->
+<section class="pricing" id="pricing" aria-label="Pricing">
+  <div class="pricing-inner">
+    <p class="section-label reveal">Pricing</p>
+    <h2 class="pricing-headline reveal">Transparent pricing. Infrastructure-grade intelligence.</h2>
+    <p class="pricing-sub reveal">Start with a project. Scale to always-on. No lock-in.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card explorer reveal">
+        <h3>Explorer</h3>
+        <div class="pricing-amount">$2,500<span class="pricing-period">/month</span></div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>5,000 Intel Units</li>
+          <li>24-48h delivery</li>
+          <li>Core templates</li>
+        </ul>
+        <a href="#contact" class="btn-teal-outline">Start with Explorer →</a>
+      </div>
+      <div class="pricing-card guardian reveal">
+        <span class="guardian-badge">Most teams start here</span>
+        <h3>Guardian</h3>
+        <div class="pricing-amount">$8,000<span class="pricing-period">/month</span></div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>20,000 Intel Units</li>
+          <li>6-12h delivery</li>
+          <li>Full Glassbox traceability</li>
+        </ul>
+        <a href="#contact" class="btn-coral-full">Request Guardian access →</a>
+      </div>
+    </div>
+    <p class="pricing-note reveal">1 Intel Unit = 1 unit of processed signal intelligence · Standard study: 2,500 IUs · Advanced: 5,000 IUs</p>
+    <p class="pricing-enterprise reveal">Running 30+ studies a year? <a href="mailto:hello@outllyr.com">hello@outllyr.com</a></p>
+  </div>
+</section>
+
+<!-- ── CTA STRIP ── -->
+<section class="cta-strip" id="contact" aria-label="Contact">
+  <h2 class="reveal">Your competitors are already listening.</h2>
+  <p class="reveal">Deploy always-on intelligence before the market moves without you.</p>
+  <a href="mailto:hello@outllyr.com" class="btn-coral reveal">Request your pilot</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer" aria-label="Footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Outllyr</div>
+      <p class="footer-tagline">Access to Continuous Consumer Intelligence.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#product">Product</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:hello@outllyr.com">hello@outllyr.com</a>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Outllyr · Insights-as-Infrastructure™</div>
+</footer>
+<script>
+(function() {
+  'use strict';
+
+  /* ── HERO CANVAS ANIMATION ── */
+  const canvas = document.getElementById('hero-canvas');
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext('2d');
+    const wrap = canvas.parentElement;
+    let W, H;
+
+    function resize() {
+      W = wrap.clientWidth;
+      H = wrap.clientHeight;
+      canvas.width = W * devicePixelRatio;
+      canvas.height = H * devicePixelRatio;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const NODE_COUNT = 35;
+    const nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.5,  /* ±0.25px/frame */
+        vy: (Math.random() - 0.5) * 0.5,  /* ±0.25px/frame */
+        r: i === 0 ? 8 : 2 + Math.random() * 2,
+        baseR: i === 0 ? 8 : 2 + Math.random() * 2,
+        opacity: i === 0 ? 0.9 : 0.5 + Math.random() * 0.4
+      });
+    }
+
+    function tick(t) {
+      /* motion trail */
+      ctx.fillStyle = 'rgba(10,22,40,0.15)';
+      ctx.fillRect(0, 0, W, H);
+
+      /* update positions */
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+        n.x = Math.max(0, Math.min(W, n.x));
+        n.y = Math.max(0, Math.min(H, n.y));
+      }
+
+      /* pulse node 0 */
+      const phase = (t % 2500) / 2500;
+      const sine = Math.sin(phase * Math.PI * 2);
+      nodes[0].r = 8 + (sine * 0.5 + 0.5) * 5; /* 8 → 13 → 8 */
+      nodes[0].opacity = 0.4 + (1 - (sine * 0.5 + 0.5)) * 0.5; /* 0.9 → 0.4 → 0.9 */
+
+      /* draw edges */
+      for (let i = 0; i < NODE_COUNT; i++) {
+        for (let j = i + 1; j < NODE_COUNT; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.strokeStyle = 'rgba(77,201,168,' + ((1 - dist / 100) * 0.15) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      /* draw nodes */
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const n = nodes[i];
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(77,201,168,' + n.opacity + ')';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── NAV SCROLL EFFECT ── */
+  const nav = document.getElementById('nav');
+  let lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    const y = window.scrollY;
+    if (y > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    lastScroll = y;
+  }, { passive: true });
+
+  /* ── SCROLL REVEAL (IntersectionObserver) ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          /* stagger siblings */
+          const parent = entry.target.parentElement;
+          const siblings = parent ? parent.querySelectorAll('.reveal') : [];
+          let idx = 0;
+          for (let i = 0; i < siblings.length; i++) {
+            if (siblings[i] === entry.target) { idx = i; break; }
+          }
+          entry.target.style.transitionDelay = (idx * 80) + 'ms';
+          entry.target.classList.add('is-visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function(el) { revealObs.observe(el); });
+  } else {
+    /* fallback: show everything */
+    revealEls.forEach(function(el) { el.classList.add('is-visible'); });
+  }
+
+  /* ── ACTIVE NAV HIGHLIGHTING ── */
+  const navLinks = document.querySelectorAll('.nav-link[data-section]');
+  const sections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window && sections.length) {
+    const navObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(function(link) {
+            if (link.getAttribute('data-section') === id) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-64px 0px -40% 0px' });
+    sections.forEach(function(s) { navObs.observe(s); });
+  }
+
+})();
+</script>
+
+</body>
+</html>
