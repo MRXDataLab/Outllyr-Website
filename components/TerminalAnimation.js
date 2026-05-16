@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { animate, text } from 'animejs';
 
 const LINES = [
-  { prefix: '[Nucleus_Ingestion]', prefixColor: 'var(--emerald)', text: ' Loading Diagnostic Pillar 1: Market Context...', textColor: 'var(--text-secondary)' },
+  { prefix: '[Intake_Terminal]', prefixColor: 'var(--emerald)', text: ' Loading Diagnostic Pillar 1: Market Context...', textColor: 'var(--text-secondary)' },
   { prefix: 'Agent:', prefixColor: '#fff', text: ' What specific event or market shift triggered this research request?', textColor: 'var(--text-secondary)' },
   { prefix: 'User:', prefixColor: '#fff', text: ' We are seeing a 14% drop in repeat purchases among Gen-Z users following our competitor\'s price cut.', textColor: 'var(--text-secondary)' },
   { prefix: 'System:', prefixColor: 'var(--emerald)', text: ' Analyzed. Locking "Strategic Intent". Commencing graph generation...', textColor: 'var(--emerald)' },
