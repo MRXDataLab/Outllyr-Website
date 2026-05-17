@@ -11,7 +11,7 @@ import AnimatedEcosystem from '../components/AnimatedEcosystem';
 import StaggerCards from '../components/StaggerCards';
 import SignalSieveAnimation from '../components/SignalSieveAnimation';
 import CausalInferenceAnimation from '../components/CausalInferenceAnimation';
-import './v3.css';
+import './globals.css';
 
 export default function Version3Page() {
   const canvasRef = useRef(null);
@@ -260,7 +260,7 @@ export default function Version3Page() {
       {/* PIPELINE ARCHITECTURE */}
       <section id="platform" className="v3-section" style={{background: 'transparent', borderTop: '1px solid var(--border-subtle)'}}>
         <div className="v3-container">
-          <div style={{marginBottom: '80px'}}>
+          <div style={{marginBottom: '80px', textAlign: 'center'}}>
             <span className="v3-hero-eyebrow">The Infrastructure</span>
             <h2 style={{fontSize: '48px', marginTop: '16px'}}>How the Ecosystem works.</h2>
           </div>
@@ -452,7 +452,7 @@ export default function Version3Page() {
             <Link href="/" className="v3-nav-logo" style={{marginBottom: '16px', display: 'inline-block'}}>
               <span style={{color: '#fff'}}>Outllyr</span>
             </Link>
-            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, maxWidth: '250px'}}>
+            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, whiteSpace: 'nowrap'}}>
               Access to Continuous Consumer Intelligence.
             </p>
           </div>
@@ -467,35 +467,21 @@ export default function Version3Page() {
           <div>
             <h4 className="v3-footer-heading">Company</h4>
             <ul className="v3-footer-links">
-              <li><Link href="#">About Us</Link></li>
-              <li><Link href="#demo">Contact</Link></li>
-              <li><Link href="/team">The Team</Link></li>
-            </ul>
-          </div>
-          <div>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-              <a href="mailto:hello@outllyr.com" style={{color: 'var(--emerald)', fontSize: '20px', textDecoration: 'none'}}>hello@outllyr.com</a>
-              <div style={{display: 'flex', gap: '20px'}}>
-                <a href="https://www.linkedin.com/company/outllyr/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--emerald)'}}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <li><Link href="/company#about-us">About Us</Link></li>
+              <li><Link href="/company#team">The Team</Link></li>
+              <li style={{marginTop: '24px', display: 'flex', alignItems: 'center', gap: '16px'}}>
+                <a href="https://www.linkedin.com/company/outllyr/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--text-secondary)', display: 'flex'}}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                   </svg>
                 </a>
-                <a href="#" style={{color: 'var(--emerald)'}}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
+                <a href="mailto:hello@outllyr.com" style={{color: 'var(--text-secondary)', fontSize: '14px', textDecoration: 'none'}}>hello@outllyr.com</a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div style={{maxWidth: '1200px', margin: '60px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '13px'}}>
+        <div style={{maxWidth: '1200px', margin: '60px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)', fontSize: '13px'}}>
           <div>© 2026 Outllyr. All rights reserved.</div>
-          <div style={{display: 'flex', gap: '16px'}}>
-            <Link href="#" style={{color: 'var(--text-muted)', textDecoration: 'none'}}>Privacy Policy</Link>
-            <Link href="#" style={{color: 'var(--text-muted)', textDecoration: 'none'}}>Terms of Service</Link>
-          </div>
         </div>
       </footer>
     </div>

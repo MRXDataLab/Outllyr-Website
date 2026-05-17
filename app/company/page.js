@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import '../v3.css'; // Reuse V3 styles
+import '../globals.css'; // Reuse global styles
 
 export default function TeamPage() {
   const canvasRef = useRef(null);
@@ -151,16 +151,41 @@ export default function TeamPage() {
         <canvas ref={canvasRef}></canvas>
       </div>
 
-      {/* HERO */}
-      <section className="v3-section" style={{paddingTop: '160px', paddingBottom: '60px'}}>
+      {/* ABOUT US */}
+      <section id="about-us" className="v3-section" style={{paddingTop: '160px', paddingBottom: '60px'}}>
+        <div className="v3-container">
+          <motion.div variants={staggerContainer} initial="hidden" animate="show" style={{textAlign: 'center'}}>
+            <motion.div variants={fadeUp}>
+              <span className="v3-hero-eyebrow">About Us</span>
+            </motion.div>
+            <motion.h1 variants={fadeUp} style={{fontSize: 'clamp(40px, 5vw, 64px)', marginBottom: '24px', background: 'linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
+              Decoding the Digital Footprint: Strategic Insights, Reimagined.
+            </motion.h1>
+            <motion.div variants={fadeUp} style={{fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '900px', margin: '0 auto', lineHeight: 1.8, textAlign: 'left'}}>
+              <p style={{marginBottom: '20px'}}>
+                In a hyper-connected world, organizations are drowning in data but starving for clarity. Traditional market research often forces a compromise between speed, depth, and trust. Outllyr eliminates that compromise. We are a next-generation market intelligence and insights company built to transform complex, ambiguous business challenges into highly actionable strategic clarity.
+              </p>
+              <p style={{marginBottom: '20px'}}>
+                At the core of Outllyr is a sophisticated, proprietary AI architecture designed to replicate and scale deep human reasoning. By seamlessly navigating the vast expanse of public internet data and digital footprints, our collaborative ecosystem of intelligent engines maps the intricate interaction dynamics between shifting consumer behaviors and market outcomes. We look beyond surface-level trends to uncover the underlying causal forces that truly drive brand performance.
+              </p>
+              <p>
+                What defines the Outllyr experience is absolute trust and transparency. Through an intuitive, live interface, we provide leaders with a dynamic window into their market landscape, where every macro insight can be traced back to its empirical origin. Outllyr is more than a platform; it is an autonomous research partner, turning global digital noise into your clear, competitive advantage.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* THE TEAM */}
+      <section id="team" className="v3-section" style={{paddingTop: '60px', paddingBottom: '60px'}}>
         <div className="v3-container">
           <motion.div variants={staggerContainer} initial="hidden" animate="show" style={{textAlign: 'center'}}>
             <motion.div variants={fadeUp}>
               <span className="v3-hero-eyebrow">The Team</span>
             </motion.div>
-            <motion.h1 variants={fadeUp} style={{fontSize: 'clamp(40px, 5vw, 64px)', marginBottom: '24px', background: 'linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
+            <motion.h2 variants={fadeUp} style={{fontSize: 'clamp(32px, 4vw, 48px)', marginBottom: '24px', background: 'linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
               Enterprise Rigor Meets Consumer Intelligence.
-            </motion.h1>
+            </motion.h2>
             <motion.p variants={fadeUp} style={{fontSize: '20px', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6}}>
               We're a multidisciplinary leadership team of systems architects, fintech product leaders, and market strategists. Having built mission-critical technology for the world's largest automotive and financial institutions, we are now bringing that same precision to delivering continuous, bias-free consumer intelligence.
             </motion.p>
@@ -220,7 +245,7 @@ export default function TeamPage() {
             <Link href="/" className="v3-nav-logo" style={{marginBottom: '16px', display: 'inline-block'}}>
               <span style={{color: '#fff'}}>Outllyr</span>
             </Link>
-            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, maxWidth: '250px'}}>
+            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, whiteSpace: 'nowrap'}}>
               Access to Continuous Consumer Intelligence.
             </p>
           </div>
@@ -235,35 +260,21 @@ export default function TeamPage() {
           <div>
             <h4 className="v3-footer-heading">Company</h4>
             <ul className="v3-footer-links">
-              <li><Link href="#">About Us</Link></li>
-              <li><Link href="/#demo">Contact</Link></li>
-              <li><Link href="/team">The Team</Link></li>
-            </ul>
-          </div>
-          <div>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-              <a href="mailto:hello@outllyr.com" style={{color: 'var(--emerald)', fontSize: '20px', textDecoration: 'none'}}>hello@outllyr.com</a>
-              <div style={{display: 'flex', gap: '20px'}}>
-                <a href="https://www.linkedin.com/company/outllyr/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--emerald)'}}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <li><Link href="/company#about-us">About Us</Link></li>
+              <li><Link href="/company#team">The Team</Link></li>
+              <li style={{marginTop: '24px', display: 'flex', alignItems: 'center', gap: '16px'}}>
+                <a href="https://www.linkedin.com/company/outllyr/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--text-secondary)', display: 'flex'}}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                   </svg>
                 </a>
-                <a href="#" style={{color: 'var(--emerald)'}}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
+                <a href="mailto:hello@outllyr.com" style={{color: 'var(--text-secondary)', fontSize: '14px', textDecoration: 'none'}}>hello@outllyr.com</a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div style={{maxWidth: '1200px', margin: '60px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '13px'}}>
+        <div style={{maxWidth: '1200px', margin: '60px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)', fontSize: '13px'}}>
           <div>© 2026 Outllyr. All rights reserved.</div>
-          <div style={{display: 'flex', gap: '16px'}}>
-            <Link href="#" style={{color: 'var(--text-muted)', textDecoration: 'none'}}>Privacy Policy</Link>
-            <Link href="#" style={{color: 'var(--text-muted)', textDecoration: 'none'}}>Terms of Service</Link>
-          </div>
         </div>
       </footer>
     </div>

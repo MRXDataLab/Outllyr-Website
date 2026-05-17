@@ -53,15 +53,8 @@ export default function TerminalAnimation() {
     <div
       ref={containerRef}
       style={{
-        marginTop: '60px',
-        background: 'rgba(15, 20, 32, 0.8)',
-        border: '1px solid rgba(77,201,168,0.2)',
-        borderRadius: '16px',
-        padding: '24px',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(77,201,168,0.05)',
-        backdropFilter: 'blur(20px)',
+        width: '100%',
         maxWidth: '700px',
-        margin: '60px auto 0',
         textAlign: 'left',
       }}
     >

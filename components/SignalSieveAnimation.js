@@ -53,8 +53,6 @@ export default function SignalSieveAnimation() {
     <div style={{
       width: '100%', 
       height: '350px', 
-      background: 'linear-gradient(135deg, rgba(10,13,22,1) 0%, rgba(15,20,32,1) 100%)', 
-      borderRadius: '8px', 
       display: 'flex', 
       flexDirection: 'column',
       alignItems: 'center', 

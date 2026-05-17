@@ -91,13 +91,9 @@ export default function CausalInferenceAnimation() {
     <div style={{
       width: '100%', 
       height: '350px', 
-      background: 'var(--bg-card)', 
-      border: '1px solid var(--border-subtle)', 
-      borderRadius: '8px', 
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center',
-      overflow: 'hidden',
       position: 'relative'
     }}>
       <svg ref={containerRef} width="100%" height="100%" viewBox="0 0 400 350" preserveAspectRatio="xMidYMid slice">

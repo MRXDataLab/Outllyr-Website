@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Outllyr | Living Truth Map Platform",
+  title: "Outllyr: New-age Consumer Intelligence!",
   description: "Nucleus Ingestion Engine mapping behavioral signals that precede every market shift.",
 };
 
