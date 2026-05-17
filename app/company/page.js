@@ -245,7 +245,7 @@ export default function TeamPage() {
             <Link href="/" className="v3-nav-logo" style={{marginBottom: '16px', display: 'inline-block'}}>
               <span style={{color: '#fff'}}>Outllyr</span>
             </Link>
-            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, whiteSpace: 'nowrap'}}>
+            <p style={{color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6}}>
               Access to Continuous Consumer Intelligence.
             </p>
           </div>

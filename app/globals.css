@@ -584,4 +584,9 @@ select.v3-input {
   .v3-nav-links {
     display: none;
   }
+
+  .v3-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
